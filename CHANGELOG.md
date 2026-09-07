@@ -8,6 +8,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial project repository.
-- Apache License 2.0.
-- GitLab Secret Detection configuration.
