@@ -86,14 +86,15 @@ The project is not intended to:
 
 ## 5. System Overview
 
-<p align="center">
-  <img src="assets/diagrams/system_flow.svg" alt="System Flow" width="700">
-</p>
+<div align="center">
 
-<p align="center" id="figure-1-system-flow">
-  <em><b>Figure 1. System Flow</b></em>
-</p>
+<a id="figure-1-system-flow"></a>
 
+![System Flow](assets/diagrams/system_flow.svg)
+
+**Figure 1. System Flow**
+
+</div>
 The system protects user data by storing it inside an encrypted vault container.
 
 Under normal operation, access to the vault requires successful authentication using both the user's password and an enrolled removable USB device. Neither factor is sufficient on its own.
@@ -108,13 +109,15 @@ If the enrolled device is lost, damaged, or otherwise unavailable, access may be
 
 ## 6. Core Use Cases
 
-<p align="center">
-  <img src="assets/diagrams/use_case.svg" alt="Use Case" width="700">
-</p>
+<div align="center">
 
-<p align="center" id="figure-2-use-case">
-  <em><b>Figure 2. Use Case</b></em>
-</p>
+<a id="figure-2-use-case"></a>
+
+<img src="assets/diagrams/use_case.svg" alt="Use Case" width="700">
+
+**Figure 2. Use Case**
+
+</div>
 
 ### 6.1 Create a Vault
 
