@@ -88,11 +88,9 @@ The project is not intended to:
 
 <div align="center">
 
-<a id="figure-1-system-flow"></a>
-
 ![System Flow](assets/diagrams/system_flow.svg)
 
-**Figure 1. System Flow**
+##### Figure 1. System Flow
 
 </div>
 The system protects user data by storing it inside an encrypted vault container.
@@ -111,11 +109,9 @@ If the enrolled device is lost, damaged, or otherwise unavailable, access may be
 
 <div align="center">
 
-<a id="figure-2-use-case"></a>
-
 <img src="assets/diagrams/use_case.svg" alt="Use Case" width="700">
 
-**Figure 2. Use Case**
+##### Figure 2. Use Case
 
 </div>
 
