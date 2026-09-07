@@ -36,8 +36,8 @@ The primary security objectives are:
 - Prevent normal vault access unless both the correct password and valid possession factor are available.
 - Prevent recovery unless both the correct password and valid recovery material are available.
 - Ensure that recovery cannot bypass or replace the user's knowledge factor.
-- Prevent invalidated possession factors from granting access.
-- Prevent invalidated recovery material from completing recovery.
+- Prevent invalidated possession factors from granting access to the current vault state.
+- Prevent invalidated recovery material from completing recovery against the current vault state.
 - Detect unauthorized modification of protected data or security-critical metadata.
 - Minimize exposure of sensitive cryptographic material during normal operation.
 - Fail securely when authentication, integrity validation, or sealing operations fail.
@@ -230,27 +230,43 @@ The system must detect unauthorized modification and must not expose corrupted p
 
 An attacker attempts to unlock the vault using possession material that was valid before a recovery or replacement operation.
 
-The outdated material must no longer satisfy the possession requirement.
+The outdated material must no longer satisfy the possession requirement for the current vault state.
 
 ### 7.12 Use of Invalidated Recovery Material
 
 An attacker attempts recovery using material that was valid before a previous successful recovery.
 
-The outdated recovery material must no longer permit recovery.
+The outdated recovery material must no longer permit recovery against the current vault state.
 
-### 7.13 USB Removal While Unlocked
+### 7.13 Vault Rollback
+
+An attacker replaces the current vault state with an older valid copy created before a possession-factor replacement, recovery operation, or recovery-material rotation.
+
+The system must not silently treat an older vault state as equivalent to the current state when doing so would restore security material that has since been invalidated.
+
+Protection against rollback may depend on security state that cannot itself be rolled back together with the vault.
+
+Historical vault copies already obtained by an attacker cannot be retroactively modified by later credential rotation.
+
+### 7.14 Security-Material Substitution
+
+An attacker replaces possession-factor, recovery, authentication, or security-critical metadata with material originating from another vault or another valid system state.
+
+Security material must be bound to the vault for which it was created and must not become valid merely because it is structurally valid or originates from another legitimate vault.
+
+### 7.15 USB Removal While Unlocked
 
 The enrolled possession factor is removed while the vault is unlocked.
 
 The system must attempt to seal the vault and must not report the vault as sealed unless the operation succeeds.
 
-### 7.14 Interrupted Security Operation
+### 7.16 Interrupted Security Operation
 
 An unlock, seal, recovery, possession-factor replacement, or recovery-material rotation operation is interrupted by application failure, system shutdown, storage failure, or unexpected device removal.
 
 The resulting state must not silently weaken the security properties of the vault.
 
-### 7.15 Lost Password
+### 7.17 Lost Password
 
 The user loses or forgets the vault password while still possessing the enrolled USB device, recovery file, or both.
 
@@ -260,7 +276,7 @@ Neither the possession factor nor recovery material may bypass or replace the lo
 
 Loss of the password therefore results in permanent loss of access to the vault.
 
-### 7.16 Lost Possession Factor
+### 7.18 Lost Possession Factor
 
 The enrolled USB possession factor is lost, damaged, or otherwise unavailable while the user still possesses the correct password and recovery file.
 
@@ -268,7 +284,7 @@ The user must be able to recover access using the password and valid recovery ma
 
 Following successful recovery, the previous possession material must be invalidated and a replacement possession factor may be enrolled.
 
-### 7.17 Lost Recovery Material
+### 7.19 Lost Recovery Material
 
 The recovery file is lost while the user still possesses the correct password and enrolled USB possession factor.
 
@@ -280,22 +296,24 @@ Loss of recovery material must not independently compromise the confidentiality 
 
 ## 8. Threat Analysis
 
-| Threat                                    | Attacker Capability                                                    | Required Security Property                                                       |
-| ----------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| Sealed vault theft                        | Copy the vault container.                                              | Vault contents remain confidential without valid authentication factors.         |
-| Password compromise                       | Know the password and possess the vault.                               | Password alone cannot grant normal access or complete recovery.                  |
-| USB theft                                 | Possess or copy the enrolled USB factor.                               | Possession material alone cannot grant normal access.                            |
-| Recovery-file theft                       | Possess the recovery file.                                             | Recovery material alone cannot complete recovery.                                |
-| Multiple non-password factors compromised | Possess the vault, USB factor, and recovery material.                  | The password remains independently required for both unlock and recovery.        |
-| Offline password guessing                 | Analyze copied authentication material without rate limits.            | Password protection must resist practical offline brute-force attacks.           |
-| Vault tampering                           | Modify persistent vault data or metadata.                              | Unauthorized changes are detected before protected data is trusted.              |
-| USB cloning                               | Duplicate USB contents or identifiers.                                 | Security must not rely on uncloneable properties of standard USB storage.        |
-| Outdated possession material              | Use a previously valid USB factor.                                     | Invalidated possession material cannot unlock the vault.                         |
-| Outdated recovery material                | Use previously valid recovery material.                                | Invalidated recovery material cannot recover the vault.                          |
-| Failed automatic seal                     | Prevent or interrupt sealing after USB removal.                        | The actual vault state remains explicit and is never falsely reported as sealed. |
-| Lost password                             | Retain other authentication or recovery material without the password. | No alternative factor can bypass or replace the password.                        |
-| Lost possession factor                    | Retain the password and recovery material.                             | Recovery can restore access without weakening the knowledge-factor requirement.  |
-| Lost recovery material                    | Retain the password and possession factor.                             | Normal access remains possible without the recovery file.                        |
+| Threat                                    | Attacker Capability                                                                    | Required Security Property                                                             |
+| ----------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Sealed vault theft                        | Copy the vault container.                                                              | Vault contents remain confidential without valid authentication factors.               |
+| Password compromise                       | Know the password and possess the vault.                                               | Password alone cannot grant normal access or complete recovery.                        |
+| USB theft                                 | Possess or copy the enrolled USB factor.                                               | Possession material alone cannot grant normal access.                                  |
+| Recovery-file theft                       | Possess the recovery file.                                                             | Recovery material alone cannot complete recovery.                                      |
+| Multiple non-password factors compromised | Possess the vault, USB factor, and recovery material.                                  | The password remains independently required for both unlock and recovery.              |
+| Offline password guessing                 | Analyze copied authentication material without rate limits.                            | Password protection must resist practical offline brute-force attacks.                 |
+| Vault tampering                           | Modify persistent vault data or metadata.                                              | Unauthorized changes are detected before protected data is trusted.                    |
+| Vault rollback                            | Replace the current vault with an older valid snapshot.                                | Rollback must not silently restore credentials invalidated in the current vault state. |
+| Security-material substitution            | Replace authentication or recovery material with material from another vault or state. | Security material must be bound to the intended vault and security state.              |
+| USB cloning                               | Duplicate USB contents or identifiers.                                                 | Security must not rely on uncloneable properties of standard USB storage.              |
+| Outdated possession material              | Use a previously valid USB factor.                                                     | Invalidated possession material cannot unlock the current vault state.                 |
+| Outdated recovery material                | Use previously valid recovery material.                                                | Invalidated recovery material cannot recover the current vault state.                  |
+| Failed automatic seal                     | Prevent or interrupt sealing after USB removal.                                        | The actual vault state remains explicit and is never falsely reported as sealed.       |
+| Lost password                             | Retain other authentication or recovery material without the password.                 | No alternative factor can bypass or replace the password.                              |
+| Lost possession factor                    | Retain the password and recovery material.                                             | Recovery can restore access without weakening the knowledge-factor requirement.        |
+| Lost recovery material                    | Retain the password and possession factor.                                             | Normal access remains possible without the recovery file.                              |
 
 ---
 
@@ -312,6 +330,8 @@ The threat model does not attempt to provide complete protection against:
 - Recovery from a forgotten or otherwise unavailable password.
 - Loss of data caused by the absence of the required authentication and recovery material.
 - Confidentiality of data that has already been copied outside the protected vault.
+- Prevention of deliberate destruction or deletion of the vault by an attacker with write access to its storage.
+- Complete resistance to side-channel attacks such as detailed access-pattern or timing analysis.
 
 ---
 
@@ -326,6 +346,10 @@ While the vault is unlocked, plaintext data must be accessible to the host opera
 The security of password-based protection depends partly on the strength of the user's password and the effectiveness of the password-hardening mechanism.
 
 Automatic sealing following USB removal may be delayed or prevented by operating-system conditions, open resources, application failure, or storage errors. The system must expose this condition rather than assuming the vault has been secured.
+
+Credential rotation cannot retroactively change historical copies of a vault that have already been obtained by an attacker. Material that has been invalidated in the current vault state may therefore remain applicable to an older vault snapshot that predates the invalidation.
+
+An attacker capable of modifying or deleting vault storage may cause permanent data loss or denial of service. Integrity protection can detect unauthorized modification but cannot by itself guarantee availability or restore destroyed data.
 
 Loss of the user password makes the vault permanently inaccessible. Recovery does not provide a mechanism for bypassing or replacing the knowledge factor.
 
