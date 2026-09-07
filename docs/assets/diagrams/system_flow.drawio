@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1" id="BHcBhZXaj5TCHJSwvup6">
+    <mxGraphModel dx="1174" dy="658" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="YokUQpqhI_1bydw7toyc-6" edge="1" parent="1" source="YokUQpqhI_1bydw7toyc-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="YokUQpqhI_1bydw7toyc-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Accessible Vault" vertex="1">
+          <mxGeometry height="60" width="120" x="40" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-7" edge="1" parent="1" source="YokUQpqhI_1bydw7toyc-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="YokUQpqhI_1bydw7toyc-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Seal" vertex="1">
+          <mxGeometry height="60" width="120" x="240" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-8" edge="1" parent="1" source="YokUQpqhI_1bydw7toyc-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="YokUQpqhI_1bydw7toyc-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Encrypted Vault" vertex="1">
+          <mxGeometry height="60" width="120" x="440" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-10" edge="1" parent="1" source="YokUQpqhI_1bydw7toyc-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="YokUQpqhI_1bydw7toyc-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="330" />
+              <mxPoint x="600" y="240" />
+              <mxPoint x="100" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Unlock" vertex="1">
+          <mxGeometry height="60" width="120" x="640" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-9" edge="1" parent="1" source="YokUQpqhI_1bydw7toyc-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.002;entryY=0.829;entryDx=0;entryDy=0;entryPerimeter=0;" target="YokUQpqhI_1bydw7toyc-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="YokUQpqhI_1bydw7toyc-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Recovery" vertex="1">
+          <mxGeometry height="60" width="120" x="440" y="440" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
