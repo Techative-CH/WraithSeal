@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1" id="pu0QrpaRMFjCqhe56McQ">
+    <mxGraphModel dx="2054" dy="1152" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-25" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="wFiQGL-Gmeey6gy1B3_v-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-26" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="wFiQGL-Gmeey6gy1B3_v-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-27" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="wFiQGL-Gmeey6gy1B3_v-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-28" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="wFiQGL-Gmeey6gy1B3_v-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-29" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="wFiQGL-Gmeey6gy1B3_v-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-30" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="wFiQGL-Gmeey6gy1B3_v-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-1" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="User" vertex="1">
+          <mxGeometry height="80" width="40" x="80" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="880" width="560" x="200" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="WraithSeal" vertex="1">
+          <mxGeometry height="30" width="60" x="450" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-7" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Create Vault" vertex="1">
+          <mxGeometry height="80" width="120" x="260" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-8" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Unlock Vault" vertex="1">
+          <mxGeometry height="80" width="120" x="260" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-9" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Access Vault Contents" vertex="1">
+          <mxGeometry height="80" width="120" x="260" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-10" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Seal Vault" vertex="1">
+          <mxGeometry height="80" width="120" x="260" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Inspect Vault State" vertex="1">
+          <mxGeometry height="80" width="120" x="260" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Recover Access" vertex="1">
+          <mxGeometry height="80" width="120" x="260" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-13" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Replace USB" vertex="1">
+          <mxGeometry height="80" width="120" x="500" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Rotate Recovery" vertex="1">
+          <mxGeometry height="80" width="120" x="500" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-15" parent="1" style="ellipse;whiteSpace=wrap;html=1;shapeInside=1;" value="Enroll USB Device" vertex="1">
+          <mxGeometry height="80" width="120" x="500" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-18" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-7" style="endArrow=open;startArrow=none;endFill=0;startFill=0;endSize=8;html=1;verticalAlign=bottom;labelBackgroundColor=none;strokeWidth=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" target="wFiQGL-Gmeey6gy1B3_v-15" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="470" y="420" as="sourcePoint" />
+            <mxPoint x="630" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-19" connectable="0" parent="wFiQGL-Gmeey6gy1B3_v-18" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="0.1" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-20" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-12" style="endArrow=open;startArrow=none;endFill=0;startFill=0;endSize=8;html=1;verticalAlign=bottom;labelBackgroundColor=none;strokeWidth=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" target="wFiQGL-Gmeey6gy1B3_v-13" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="430" y="770" as="sourcePoint" />
+            <mxPoint x="550" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-21" connectable="0" parent="wFiQGL-Gmeey6gy1B3_v-20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="0.1" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-22" edge="1" parent="1" source="wFiQGL-Gmeey6gy1B3_v-12" style="endArrow=open;startArrow=none;endFill=0;startFill=0;endSize=8;html=1;verticalAlign=bottom;labelBackgroundColor=none;strokeWidth=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" target="wFiQGL-Gmeey6gy1B3_v-14" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="420" y="800" as="sourcePoint" />
+            <mxPoint x="540" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wFiQGL-Gmeey6gy1B3_v-23" connectable="0" parent="wFiQGL-Gmeey6gy1B3_v-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&amp;lt;&amp;lt;include&amp;gt;&amp;gt;" vertex="1">
+          <mxGeometry relative="1" x="0.1" y="-1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
