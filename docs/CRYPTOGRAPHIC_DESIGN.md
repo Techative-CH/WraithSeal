@@ -55,29 +55,19 @@ properties defined by the system architecture.
 In particular:
 
 - Vault contents must be protected by high-entropy cryptographic key material.
-- The user password must remain independently necessary for both normal access
-  and recovery.
-- Normal access must require both the password and the enrolled possession
-  factor.
+- The user password must remain independently necessary for both normal access and recovery.
+- Normal access must require both the password and the enrolled possession factor.
 - Recovery must require both the password and valid recovery material.
 - Possession-factor material alone must not provide access to the VMK.
 - Recovery material alone must not provide access to the VMK.
-- Possession-factor and recovery material together must not provide access
-  without the password.
-- Normal authentication and recovery authentication must use cryptographically
-  separated derivation paths.
-- Cryptographic material belonging to one vault must not become valid for
-  another vault.
-- Cryptographic material belonging to one security generation must not
-  authenticate against a different current security generation.
-- Protected key material must be cryptographically bound to its intended
-  purpose and security context.
-- Credential replacement and rotation should not require re-encryption of the
-  complete vault contents.
-- Cryptographic integrity failures must be detectable and must never be
-  interpreted as successful authentication or decryption.
-- Sensitive plaintext key material must exist only for as long as required by
-  the operation using it.
+- Possession-factor and recovery material together must not provide access without the password.
+- Normal authentication and recovery authentication must use cryptographically separated derivation paths.
+- Cryptographic material belonging to one vault must not become valid for another vault.
+- Cryptographic material belonging to one security generation must not authenticate against a different current security generation.
+- Protected key material must be cryptographically bound to its intended purpose and security context.
+- Credential replacement and rotation should not require re-encryption of the complete vault contents.
+- Cryptographic integrity failures must be detectable and must never be interpreted as successful authentication or decryption.
+- Sensitive plaintext key material must exist only for as long as required by the operation using it.
 
 ---
 
@@ -116,6 +106,10 @@ These parameters include:
 - Parallelism.
 - Output length.
 
+The complete Argon2id configuration required to reproduce the PDK must be
+stored explicitly. Implementations must not rely on library defaults that may
+change between software versions.
+
 ### 3.2 HKDF-SHA-256
 
 `HKDF-SHA-256` is used to derive purpose-specific key material from existing
@@ -137,8 +131,7 @@ HKDF output used as an unlock key is 256 bits in length.
 AEAD protection provides both:
 
 - Confidentiality of the VMK.
-- Authentication of the protected VMK and its associated cryptographic
-  context.
+- Authentication of the protected VMK and its associated cryptographic context.
 
 The normal and recovery VMK wrappers are independently encrypted and use
 distinct nonces.
@@ -556,32 +549,35 @@ states and cannot be retroactively altered by later rotations.
 ### 11.1 Password Change
 
 A password change replaces the password-derived portion of both authentication
-paths.
+paths and rotates the recovery configuration.
 
 The operation requires successful authentication using the current normal
 authentication path before the password configuration can be replaced.
 
+The current VMK is recovered using the existing valid normal authentication
+configuration.
+
 A new password salt is generated and the new Password-Derived Key is derived
-using the new password.
+from the new password:
 
 ```text
 New Password + New Salt + KDF Parameters -> Argon2id -> New PDK
 ```
 
-The current VMK is recovered using the existing valid authentication
-configuration.
+The current Possession Secret remains unchanged.
 
-New normal and recovery unlock keys are then derived using:
-
-- The new PDK.
-- The current Possession Secret.
-- The current Recovery Secret.
-- The next security generation.
-- The appropriate normal or recovery cryptographic context.
+A new Recovery Secret is generated using a CSPRNG:
 
 ```text
-New PDK + Current Possession Secret -> HKDF-SHA-256 -> New NUK
-New PDK + Current Recovery Secret -> HKDF-SHA-256 -> New RUK
+CSPRNG -> New Recovery Secret (32 bytes)
+```
+
+New normal and recovery unlock keys are then derived for security generation
+`N+1`:
+
+```text
+New PDK + Current Possession Secret + New Normal Context -> HKDF-SHA-256 -> New NUK
+New PDK + New Recovery Secret + New Recovery Context -> HKDF-SHA-256 -> New RUK
 ```
 
 The unchanged VMK is protected with new normal and recovery wrappers.
@@ -590,20 +586,32 @@ The new configuration includes:
 
 - A new password salt.
 - The selected Argon2id parameters.
+- A new Recovery Secret.
+- New recovery material.
 - A new Normal Wrapped VMK.
 - A new Recovery Wrapped VMK.
 - New wrapper nonces.
 - Security generation `N+1`.
 
-The complete new state must be validated before commit.
+The new recovery material must be fully generated and validated before the new
+security state is committed.
 
-After the new state becomes authoritative, the previous password must no
-longer recover the VMK against the current security generation.
+After commit:
+
+- The previous password must no longer recover the VMK against the current security generation.
+- Previous recovery material must no longer authenticate against the current security generation.
+- The newly generated recovery material becomes the only valid recovery material for the current vault state.
 
 ### 11.2 Possession-Factor Replacement
 
 Possession-factor replacement changes the possession secret used by the normal
+authentication path and rotates the recovery configuration.
+
+The operation requires successful authentication using the current normal
 authentication path.
+
+The current VMK is recovered using the existing valid normal authentication
+configuration and remains unchanged.
 
 A new Possession Secret is generated using a CSPRNG:
 
@@ -611,36 +619,46 @@ A new Possession Secret is generated using a CSPRNG:
 CSPRNG -> New Possession Secret (32 bytes)
 ```
 
-The new secret is written to the replacement possession factor.
+The new Possession Secret is written to the replacement possession factor.
 
-The VMK is recovered using an already authorized path and remains unchanged.
+A new Recovery Secret is also generated:
 
-A new Normal Unlock Key is then derived:
+```text
+CSPRNG -> New Recovery Secret (32 bytes)
+```
+
+The new Recovery Secret is stored in newly generated recovery material.
+
+New normal and recovery unlock keys are then derived for security generation
+`N+1`:
 
 ```text
 PDK + New Possession Secret + New Normal Context -> HKDF-SHA-256 -> New NUK
+PDK + New Recovery Secret + New Recovery Context -> HKDF-SHA-256 -> New RUK
 ```
 
-A new Normal Wrapped VMK is created for security generation `N+1`.
-
-The recovery path must also be rebound to the new security generation. The
-current Recovery Secret is therefore used to derive a new RUK for generation
-`N+1`, and a new Recovery Wrapped VMK is created.
+The unchanged VMK is protected with new normal and recovery wrappers.
 
 The new security state includes:
 
 - The new Possession Secret.
 - Updated possession-factor metadata.
+- A new Recovery Secret.
+- New recovery material.
 - A new Normal Wrapped VMK.
 - A new Recovery Wrapped VMK.
 - New wrapper nonces.
 - Security generation `N+1`.
 
-The replacement possession factor must be validated before the new state is
-committed.
+The replacement possession factor and new recovery material must be fully
+generated and validated before the new security state is committed.
 
-After commit, the previous Possession Secret must not satisfy normal
-authentication against the current security generation.
+After commit:
+
+- The replacement possession factor becomes the current enrolled factor.
+- Previous possession material must no longer authenticate against the current security generation.
+- The newly generated recovery material becomes the only valid recovery material for the current vault state.
+- Previous recovery material must no longer authenticate against the current security generation.
 
 ### 11.3 Recovery-Material Rotation
 
