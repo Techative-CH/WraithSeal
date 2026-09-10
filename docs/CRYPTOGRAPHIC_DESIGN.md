@@ -526,3 +526,402 @@ authenticated context must cause VMK unwrapping to fail.
 
 The byte-level representation and canonical encoding of associated data are
 defined as part of the persistent vault format.
+
+---
+
+## 11. Security-State Transitions
+
+Security-sensitive credential changes modify the protection around the VMK
+without replacing the VMK itself.
+
+A transition creates a new complete security configuration before making it
+authoritative.
+
+The previous security generation remains current until the new configuration
+has been fully prepared and validated.
+
+A successful transition increments the security generation:
+
+```text
+Generation N -> Prepare New Security State -> Validate -> Atomic Commit -> Generation N+1
+```
+
+Material belonging to generation `N` must not satisfy authentication or
+recovery requirements against the current state after generation `N+1` becomes
+authoritative.
+
+Historical copies of generation `N` remain cryptographically valid historical
+states and cannot be retroactively altered by later rotations.
+
+### 11.1 Password Change
+
+A password change replaces the password-derived portion of both authentication
+paths.
+
+The operation requires successful authentication using the current normal
+authentication path before the password configuration can be replaced.
+
+A new password salt is generated and the new Password-Derived Key is derived
+using the new password.
+
+```text
+New Password + New Salt + KDF Parameters -> Argon2id -> New PDK
+```
+
+The current VMK is recovered using the existing valid authentication
+configuration.
+
+New normal and recovery unlock keys are then derived using:
+
+- The new PDK.
+- The current Possession Secret.
+- The current Recovery Secret.
+- The next security generation.
+- The appropriate normal or recovery cryptographic context.
+
+```text
+New PDK + Current Possession Secret -> HKDF-SHA-256 -> New NUK
+New PDK + Current Recovery Secret -> HKDF-SHA-256 -> New RUK
+```
+
+The unchanged VMK is protected with new normal and recovery wrappers.
+
+The new configuration includes:
+
+- A new password salt.
+- The selected Argon2id parameters.
+- A new Normal Wrapped VMK.
+- A new Recovery Wrapped VMK.
+- New wrapper nonces.
+- Security generation `N+1`.
+
+The complete new state must be validated before commit.
+
+After the new state becomes authoritative, the previous password must no
+longer recover the VMK against the current security generation.
+
+### 11.2 Possession-Factor Replacement
+
+Possession-factor replacement changes the possession secret used by the normal
+authentication path.
+
+A new Possession Secret is generated using a CSPRNG:
+
+```text
+CSPRNG -> New Possession Secret (32 bytes)
+```
+
+The new secret is written to the replacement possession factor.
+
+The VMK is recovered using an already authorized path and remains unchanged.
+
+A new Normal Unlock Key is then derived:
+
+```text
+PDK + New Possession Secret + New Normal Context -> HKDF-SHA-256 -> New NUK
+```
+
+A new Normal Wrapped VMK is created for security generation `N+1`.
+
+The recovery path must also be rebound to the new security generation. The
+current Recovery Secret is therefore used to derive a new RUK for generation
+`N+1`, and a new Recovery Wrapped VMK is created.
+
+The new security state includes:
+
+- The new Possession Secret.
+- Updated possession-factor metadata.
+- A new Normal Wrapped VMK.
+- A new Recovery Wrapped VMK.
+- New wrapper nonces.
+- Security generation `N+1`.
+
+The replacement possession factor must be validated before the new state is
+committed.
+
+After commit, the previous Possession Secret must not satisfy normal
+authentication against the current security generation.
+
+### 11.3 Recovery-Material Rotation
+
+Recovery-material rotation replaces the Recovery Secret without changing the
+VMK or the current possession factor.
+
+A new Recovery Secret is generated:
+
+```text
+CSPRNG -> New Recovery Secret (32 bytes)
+```
+
+The new Recovery Secret is stored in newly generated recovery material.
+
+The VMK is recovered using the currently authorized normal path.
+
+A new Recovery Unlock Key is derived:
+
+```text
+PDK + New Recovery Secret + New Recovery Context -> HKDF-SHA-256 -> New RUK
+```
+
+Because the security generation changes, the normal path must also be rebound
+to generation `N+1`.
+
+A new NUK is therefore derived using the existing Possession Secret and the new
+normal context for generation `N+1`.
+
+New normal and recovery VMK wrappers are then created.
+
+The new security state includes:
+
+- The new Recovery Secret.
+- New recovery material.
+- A new Normal Wrapped VMK.
+- A new Recovery Wrapped VMK.
+- New wrapper nonces.
+- Security generation `N+1`.
+
+The new recovery material must be fully generated and validated before commit.
+
+After commit, previous recovery material must not satisfy recovery requirements
+against the current security generation.
+
+### 11.4 Recovery
+
+Recovery is used when the current possession factor is unavailable but the user
+still has:
+
+- The correct password.
+- Valid recovery material.
+
+The password is processed using the current password derivation configuration:
+
+```text
+Password -> Argon2id -> PDK
+```
+
+The Recovery Secret is obtained from the recovery material.
+
+The current Recovery Unlock Key is then derived:
+
+```text
+PDK + Recovery Secret + Recovery Context -> HKDF-SHA-256 -> RUK
+```
+
+The RUK is used to authenticate and recover the VMK from the current Recovery
+Wrapped VMK.
+
+Failure to authenticate the recovery wrapper terminates the recovery attempt.
+
+Successful recovery of the VMK does not expose vault contents.
+
+Instead, the system prepares a completely new security configuration.
+
+A new Possession Secret and a new Recovery Secret are generated:
+
+```text
+CSPRNG -> New Possession Secret
+CSPRNG -> New Recovery Secret
+```
+
+The new Possession Secret is enrolled onto the replacement possession factor,
+and the new Recovery Secret is placed into newly generated recovery material.
+
+New unlock keys are derived for security generation `N+1`:
+
+```text
+PDK + New Possession Secret -> HKDF-SHA-256 -> New NUK
+PDK + New Recovery Secret -> HKDF-SHA-256 -> New RUK
+```
+
+The unchanged VMK is then protected with new normal and recovery wrappers.
+
+The complete replacement configuration must be validated before it becomes
+authoritative.
+
+After a successful atomic commit:
+
+- The security generation becomes `N+1`.
+- The replacement possession factor becomes the current enrolled factor.
+- The newly generated recovery material becomes the current recovery material.
+- Previous possession material no longer authenticates against the current
+  vault state.
+- Previous recovery material no longer authenticates against the current vault
+  state.
+- The vault remains `SEALED`.
+
+Temporary plaintext copies of the VMK, derived keys, old secrets, and other
+sensitive intermediate material must be destroyed when they are no longer
+required.
+
+---
+
+## 12. Sensitive Material Lifecycle
+
+Cryptographic secrets must remain available in plaintext memory only for the
+minimum duration required by the operation using them.
+
+Sensitive material includes:
+
+- The VMK.
+- The PDK.
+- The NUK.
+- The RUK.
+- Possession Secrets.
+- Recovery Secrets.
+- Temporary key-derivation output.
+- Temporary plaintext produced during cryptographic operations.
+
+Secrets must not be written to logs, diagnostic messages, crash reports, or
+other non-secure output.
+
+Persistent storage must contain protected representations or explicitly
+required secret material only where the design requires it.
+
+In particular:
+
+- The VMK must never be stored persistently in plaintext.
+- The PDK must never be stored persistently.
+- The NUK must never be stored persistently.
+- The RUK must never be stored persistently.
+- The Possession Secret is stored on the enrolled possession factor.
+- The Recovery Secret is stored in recovery material.
+
+Where supported by the implementation platform and cryptographic library,
+sensitive memory should be cleared explicitly after use.
+
+Memory clearing is a best-effort defensive measure and must not be treated as
+a guarantee that sensitive data has never existed elsewhere in process memory,
+operating-system buffers, swap, crash dumps, or hardware-managed memory.
+
+The design must therefore minimize:
+
+- The number of copies of sensitive material.
+- The lifetime of each copy.
+- Transfers of sensitive material between components.
+- Serialization of plaintext key material.
+
+Components must receive only the sensitive material required for their
+specific responsibility.
+
+The Vault Engine, for example, may receive the VMK required to operate on vault
+contents but must not receive the user password, Possession Secret, or Recovery
+Secret.
+
+---
+
+## 13. Cryptographic Failure Behaviour
+
+Cryptographic failure must always fail closed.
+
+A failed cryptographic verification must never be interpreted as successful
+authentication, successful decryption, or valid security metadata.
+
+Failure conditions include:
+
+- Argon2id derivation failure.
+- HKDF derivation failure.
+- Invalid or malformed cryptographic parameters.
+- Missing cryptographic material.
+- Invalid AEAD authentication tags.
+- Invalid nonces or unsupported cryptographic configuration.
+- Wrapper context mismatch.
+- Vault identity mismatch.
+- Security-generation mismatch.
+- Wrapper-type mismatch.
+- Corrupted protected key material.
+- Failure of the operating-system CSPRNG.
+
+### 13.1 Authentication Failure
+
+If VMK unwrapping fails because authenticated decryption fails, the supplied
+authentication material must be treated as invalid.
+
+For a normal unlock attempt, authentication failure leaves the vault
+`SEALED`.
+
+For a recovery attempt, authentication failure terminates recovery and leaves
+the vault `SEALED`.
+
+The system must not expose whether a failure resulted specifically from:
+
+- An incorrect password.
+- Incorrect possession material.
+- Incorrect recovery material.
+- An invalid wrapper authentication tag.
+
+Externally distinguishing these conditions could unnecessarily reveal
+information about which authentication factor was correct.
+
+### 13.2 Integrity Failure
+
+Failure caused by corrupted or inconsistent persistent security state is
+different from ordinary invalid authentication.
+
+If security-critical metadata or authenticated context cannot be validated,
+the system must not continue using that state as though it were valid.
+
+Such failures must be surfaced as an integrity or vault-state error.
+
+### 13.3 Random-Generation Failure
+
+Failure of the cryptographically secure random source must abort any operation
+that requires new cryptographic material.
+
+The system must never substitute a weaker random generator or continue using
+predictable fallback values.
+
+This applies to generation of:
+
+- VMKs.
+- Password salts.
+- Possession Secrets.
+- Recovery Secrets.
+- AEAD nonces where random generation is used.
+- Any future cryptographic material requiring unpredictable randomness.
+
+### 13.4 Security-State Transition Failure
+
+A failed password change, possession-factor replacement, recovery-material
+rotation, or recovery operation must not make a partial new configuration
+authoritative.
+
+Until the new security state has been completely prepared, validated, and
+committed, generation `N` remains authoritative.
+
+If failure occurs before commit:
+
+- Newly generated wrappers must not replace current wrappers.
+- Newly generated secrets must not become current credentials.
+- The security generation must not advance.
+- Temporary sensitive material must be discarded.
+- The previous valid security state must remain current whenever it can be
+  preserved safely.
+
+If the implementation cannot determine which persistent security state is
+authoritative after a failure, the vault must enter an error condition rather
+than silently selecting one.
+
+---
+
+## 14. Glossary
+
+| Term                             | Definition                                                                                                                                                  |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Vault Master Key (VMK)**       | 256-bit random key material that ultimately provides cryptographic access to protected vault contents.                                                      |
+| **Password-Derived Key (PDK)**   | 256-bit transient key derived from the user password using Argon2id.                                                                                        |
+| **Normal Unlock Key (NUK)**      | 256-bit transient key derived from the PDK, Possession Secret, and normal unlock context. It protects the Normal Wrapped VMK.                               |
+| **Recovery Unlock Key (RUK)**    | 256-bit transient key derived from the PDK, Recovery Secret, and recovery context. It protects the Recovery Wrapped VMK.                                    |
+| **Possession Secret**            | 256-bit random secret stored on the enrolled possession factor and required for normal authentication.                                                      |
+| **Recovery Secret**              | 256-bit random secret stored in recovery material and required together with the password for recovery.                                                     |
+| **Normal Wrapped VMK**           | Authenticated encrypted representation of the VMK protected by the NUK.                                                                                     |
+| **Recovery Wrapped VMK**         | Authenticated encrypted representation of the VMK protected by the RUK.                                                                                     |
+| **Password Salt**                | Random non-secret value used as input to Argon2id for password-based key derivation.                                                                        |
+| **AEAD**                         | Authenticated Encryption with Associated Data. Encryption that provides confidentiality and integrity while also authenticating non-secret associated data. |
+| **CSPRNG**                       | Cryptographically Secure Pseudorandom Number Generator used to generate unpredictable cryptographic material.                                               |
+| **Nonce**                        | Value required by an encryption construction to ensure safe use of a key across encryption operations.                                                      |
+| **Associated Data**              | Non-secret information authenticated by an AEAD operation without being encrypted.                                                                          |
+| **Domain Separation**            | Use of distinct cryptographic contexts so that key material intended for one purpose cannot be reused for another purpose.                                  |
+| **Security Generation**          | Version of the current security configuration of a vault.                                                                                                   |
+| **Cryptographic Design Version** | Identifier representing the cryptographic construction and interpretation expected by a vault security configuration.                                       |
+| **Authoritative State**          | Security configuration currently recognized as valid and active for a vault.                                                                                |
+| **Atomic Commit**                | Operation that makes a complete prepared security state authoritative without exposing a partially updated state.                                           |
