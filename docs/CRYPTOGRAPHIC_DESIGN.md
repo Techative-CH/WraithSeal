@@ -93,35 +93,70 @@ The output of Argon2id is the Password-Derived Key (PDK).
 
 The PDK is 256 bits in length.
 
-Each vault uses its own randomly generated password salt. The parameters
-required to reproduce the derivation are stored as non-secret security
-metadata.
+Each vault uses its own randomly generated 128-bit password salt.
 
-These parameters include:
+The minimum supported Argon2id configuration is:
+
+| Parameter     | Minimum Value |
+| ------------- | ------------- |
+| Memory cost   | 64 MiB        |
+| Time cost     | 3 iterations  |
+| Parallelism   | 4 lanes       |
+| Salt length   | 16 bytes      |
+| Output length | 32 bytes      |
+
+This baseline corresponds to the memory-constrained recommended Argon2id
+configuration defined by RFC 9106.
+
+Implementations may select stronger parameters when the target platform can
+support them without making normal vault access impractical.
+
+Parameters selected during vault creation are stored with the vault and remain
+part of its password derivation configuration. They must not be silently
+reduced when the vault is opened on a less capable system.
+
+The complete configuration required to reproduce the PDK must be stored
+explicitly. Implementations must not rely on cryptographic-library defaults
+that may change between software versions.
+
+Stored parameters include:
 
 - Algorithm identifier.
+- Argon2 version.
 - Salt.
 - Memory cost.
 - Time cost.
 - Parallelism.
 - Output length.
 
-The complete Argon2id configuration required to reproduce the PDK must be
-stored explicitly. Implementations must not rely on library defaults that may
-change between software versions.
-
 ### 3.2 HKDF-SHA-256
 
-`HKDF-SHA-256` is used to derive purpose-specific key material from existing
-cryptographic secrets.
+`HKDF-SHA-256` is used to combine independently obtained cryptographic secrets
+and derive purpose-specific unlock keys.
 
-It is used to combine the PDK with the possession secret or recovery secret
-while maintaining explicit separation between normal authentication and
-recovery.
+The construction follows the HKDF Extract-and-Expand model.
 
-The normal and recovery paths use distinct cryptographic contexts.
+For normal authentication:
 
-HKDF output used as an unlock key is 256 bits in length.
+```text
+HKDF-Extract(salt = Possession Secret, IKM = PDK) -> Normal PRK
+HKDF-Expand(Normal PRK, Normal Unlock Context, 32 bytes) -> NUK
+```
+
+For recovery authentication:
+
+```text
+HKDF-Extract(salt = Recovery Secret, IKM = PDK) -> Recovery PRK
+HKDF-Expand(Recovery PRK, Recovery Unlock Context, 32 bytes) -> RUK
+```
+
+The intermediate pseudorandom keys produced by HKDF-Extract are transient
+sensitive material and must not be stored persistently.
+
+Normal and recovery derivations use distinct cryptographic contexts to provide
+domain separation.
+
+All HKDF outputs used as unlock keys are 256 bits in length.
 
 ### 3.3 XChaCha20-Poly1305
 
@@ -329,11 +364,15 @@ stored on the enrolled possession factor.
 The derivation uses HKDF-SHA-256:
 
 ```text
-PDK + Possession Secret + Normal Unlock Context -> HKDF-SHA-256 -> NUK
+HKDF-Extract(salt = Possession Secret, IKM = PDK) -> Normal PRK
+HKDF-Expand(Normal PRK, Normal Unlock Context, 32 bytes) -> NUK
 ```
 
-The Possession Secret therefore contributes directly to the derivation of the
-key required to recover the normal VMK wrapper.
+The Possession Secret and PDK therefore both contribute to the key required to
+recover the Normal Wrapped VMK.
+
+The Normal PRK and NUK are transient sensitive material and must not be stored
+persistently.
 
 Neither input is sufficient independently:
 
@@ -369,11 +408,18 @@ of the persistent format definition.
 Recovery authentication combines password-derived material with the Recovery
 Secret.
 
-The derivation also uses HKDF-SHA-256, but with a distinct context:
+The derivation uses HKDF-SHA-256 with a distinct recovery secret and context:
 
 ```text
-PDK + Recovery Secret + Recovery Unlock Context -> HKDF-SHA-256 -> RUK
+HKDF-Extract(salt = Recovery Secret, IKM = PDK) -> Recovery PRK
+HKDF-Expand(Recovery PRK, Recovery Unlock Context, 32 bytes) -> RUK
 ```
+
+The Recovery Secret and PDK therefore both contribute to the key required to
+recover the Recovery Wrapped VMK.
+
+The Recovery PRK and RUK are transient sensitive material and must not be
+stored persistently.
 
 Neither input is sufficient independently:
 
@@ -784,6 +830,7 @@ Sensitive material includes:
 - The PDK.
 - The NUK.
 - The RUK.
+- HKDF intermediate PRKs.
 - Possession Secrets.
 - Recovery Secrets.
 - Temporary key-derivation output.
