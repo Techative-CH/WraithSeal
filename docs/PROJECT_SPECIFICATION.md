@@ -93,6 +93,7 @@ The project is not intended to:
 ##### Figure 1. System Flow
 
 </div>
+
 The system protects user data by storing it inside an encrypted vault container.
 
 Under normal operation, access to the vault requires successful authentication using both the user's password and an enrolled removable USB device. Neither factor is sufficient on its own.

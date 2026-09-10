@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1" id="p9mTFOPtgD1EyELEd9Zc">
+    <mxGraphModel dx="1184" dy="707" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4fVH-gieXvFtE_IwfW45-15" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Possession Factor Manager" vertex="1">
+          <mxGeometry height="60" width="120" x="95" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-14" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="90" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Vault Controller" vertex="1">
+          <mxGeometry height="60" width="120" x="355" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-26" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="535" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-27" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="295" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-5" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;" value="Vault Sealed?" vertex="1">
+          <mxGeometry height="80" width="120" x="355" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Sealed" vertex="1">
+          <mxGeometry height="60" width="120" x="235" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Error" vertex="1">
+          <mxGeometry height="60" width="120" x="475" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-11" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="yes" vertex="1">
+          <mxGeometry height="30" width="60" x="295" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-12" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="no" vertex="1">
+          <mxGeometry height="30" width="60" x="475" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-16" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Possession factor&amp;nbsp;&lt;div&gt;removed&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="110" x="230" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-21" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Sealing" vertex="1">
+          <mxGeometry height="60" width="120" x="590" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-19" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Begin Sealing" vertex="1">
+          <mxGeometry height="30" width="80" x="493" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-23" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Vault Engine" vertex="1">
+          <mxGeometry height="60" width="120" x="590" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-25" edge="1" parent="1" source="4fVH-gieXvFtE_IwfW45-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="4fVH-gieXvFtE_IwfW45-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Platform Adapter" vertex="1">
+          <mxGeometry height="60" width="120" x="355" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="4fVH-gieXvFtE_IwfW45-24" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Seal Vault" vertex="1">
+          <mxGeometry height="30" width="60" x="503" y="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
