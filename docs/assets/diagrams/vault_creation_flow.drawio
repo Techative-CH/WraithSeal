@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1" id="AoYNPxQ0babHi9jtXlnr">
+    <mxGraphModel dx="1580" dy="817" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-3" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="gbOAAjQ2DN-39hMrg1sB-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="User Interface" vertex="1">
+          <mxGeometry height="60" width="120" x="60" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-17" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Vault Controller" vertex="1">
+          <mxGeometry height="60" width="120" x="60" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Create vault" vertex="1">
+          <mxGeometry height="30" width="80" x="120" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-18" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Generate Vault Identity" vertex="1">
+          <mxGeometry height="60" width="120" x="250" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-19" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Generate VMK" vertex="1">
+          <mxGeometry height="60" width="120" x="440" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-20" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Establish Password Protection" vertex="1">
+          <mxGeometry height="60" width="120" x="630" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-21" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Generate and Enroll Possession-Factor Material&amp;nbsp;" vertex="1">
+          <mxGeometry height="60" width="120" x="630" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-22" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Generate Recovery Material" vertex="1">
+          <mxGeometry height="60" width="120" x="440" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-23" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Create Normal VMK Protection" vertex="1">
+          <mxGeometry height="60" width="120" x="250" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-24" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Create Recovery VMK Protection" vertex="1">
+          <mxGeometry height="60" width="120" x="60" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-25" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Initialize Vault Metadata" vertex="1">
+          <mxGeometry height="60" width="120" x="60" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-32" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Create Encrypted Vault Container" vertex="1">
+          <mxGeometry height="60" width="120" x="250" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-28" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Atomic Commit" vertex="1">
+          <mxGeometry height="60" width="120" x="630" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Sealed" vertex="1">
+          <mxGeometry height="60" width="120" x="630" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-33" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690.03" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-35" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-31" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;" value="Validate Complete Initial State" vertex="1">
+          <mxGeometry height="80" width="130" x="440" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-39" edge="1" parent="1" source="gbOAAjQ2DN-39hMrg1sB-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="gbOAAjQ2DN-39hMrg1sB-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-34" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Abort Creation" vertex="1">
+          <mxGeometry height="60" width="120" x="445" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-36" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Valid" vertex="1">
+          <mxGeometry height="30" width="60" x="570" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-37" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Invalid" vertex="1">
+          <mxGeometry height="30" width="60" x="505" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="gbOAAjQ2DN-39hMrg1sB-38" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Error" vertex="1">
+          <mxGeometry height="60" width="120" x="445" y="680" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
