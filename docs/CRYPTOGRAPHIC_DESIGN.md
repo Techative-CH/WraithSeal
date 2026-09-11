@@ -77,7 +77,7 @@ In particular:
 | ------------------------------------- | ----------------------- |
 | Password-based key derivation         | Argon2id                |
 | Key derivation and factor combination | HKDF-SHA-256            |
-| VMK protection                        | XChaCha20-Poly1305      |
+| Authenticated encryption              | XChaCha20-Poly1305      |
 | Random key and secret generation      | Operating-system CSPRNG |
 
 ### 3.1 Argon2id
@@ -160,16 +160,34 @@ All HKDF outputs used as unlock keys are 256 bits in length.
 
 ### 3.3 XChaCha20-Poly1305
 
-`XChaCha20-Poly1305` is used as an authenticated encryption with associated data
-(AEAD) construction for protecting the VMK.
+`XChaCha20-Poly1305` is used as the authenticated encryption with associated
+data (AEAD) construction for protecting both key material and encrypted vault
+contents.
 
-AEAD protection provides both:
+It is used for:
 
-- Confidentiality of the VMK.
-- Authentication of the protected VMK and its associated cryptographic context.
+- Normal and recovery VMK protection.
+- Encrypted Data Descriptor protection.
+- Independent encryption and authentication of vault data chunks.
+
+AEAD protection provides confidentiality of encrypted material and
+authentication of both the ciphertext and its associated cryptographic
+context.
+
+For vault data encryption, the VMK is used as the encryption key. Vault
+contents are divided into independently authenticated chunks, allowing
+individual portions of the encrypted data region to be accessed or modified
+without re-encrypting the complete vault contents.
+
+The encrypted data region is intentionally independent from the Security
+Generation. Credential changes modify the protection around the VMK while the
+VMK itself remains unchanged. Data encrypted under the VMK therefore does not
+need to be re-encrypted when the Security Generation changes.
 
 The normal and recovery VMK wrappers are independently encrypted and use
 distinct nonces.
+
+Each independently encrypted data chunk also uses its own nonce.
 
 A nonce must never be intentionally reused with the same encryption key.
 
