@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Pagina-1" id="Oa-fTMWkUdnTb7Z5XDge">
+    <mxGraphModel dx="2054" dy="1062" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-6" edge="1" parent="1" source="TTPZLYey3cX3uS4RIG7I-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TTPZLYey3cX3uS4RIG7I-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-7" edge="1" parent="1" source="TTPZLYey3cX3uS4RIG7I-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="TTPZLYey3cX3uS4RIG7I-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="VMK" vertex="1">
+          <mxGeometry height="60" width="120" x="340" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Normal Wrapped VMK" vertex="1">
+          <mxGeometry height="60" width="120" x="220" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Recovery Wrapped VMK" vertex="1">
+          <mxGeometry height="60" width="120" x="460" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-8" edge="1" parent="1" source="TTPZLYey3cX3uS4RIG7I-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="TTPZLYey3cX3uS4RIG7I-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Password + USB" vertex="1">
+          <mxGeometry height="60" width="120" x="220" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-9" edge="1" parent="1" source="TTPZLYey3cX3uS4RIG7I-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="TTPZLYey3cX3uS4RIG7I-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TTPZLYey3cX3uS4RIG7I-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Password + Recovery&amp;nbsp;" vertex="1">
+          <mxGeometry height="60" width="120" x="460" y="300" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
