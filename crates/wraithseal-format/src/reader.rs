@@ -34,6 +34,41 @@ impl<'a> Reader<'a> {
 
         Ok(slice)
     }
+
+    fn read_u8(&mut self) -> Result<u8, ReadError> {
+        let bytes = self.read_bytes(1)?;
+        Ok(bytes[0])
+    }
+
+    fn read_u16(&mut self) -> Result<u16, ReadError> {
+        let bytes = self.read_bytes(2)?;
+
+        let bytes: [u8; 2] = bytes
+            .try_into()
+            .expect("read_bytes returned an unexpected length");
+
+        Ok(u16::from_be_bytes(bytes))
+    }
+
+    fn read_u32(&mut self) -> Result<u32, ReadError> {
+        let bytes = self.read_bytes(4)?;
+
+        let bytes: [u8; 4] = bytes
+            .try_into()
+            .expect("read_bytes returned an unexpected length");
+
+        Ok(u32::from_be_bytes(bytes))
+    }
+
+    fn read_u64(&mut self) -> Result<u64, ReadError> {
+        let bytes = self.read_bytes(8)?;
+
+        let bytes: [u8; 8] = bytes
+            .try_into()
+            .expect("read_bytes returned an unexpected length");
+
+        Ok(u64::from_be_bytes(bytes))
+    }
 }
 
 #[cfg(test)]
@@ -91,6 +126,95 @@ mod tests {
         let result = reader.read_bytes(0).unwrap();
 
         assert_eq!(result, &[]);
+        assert_eq!(reader.position(), 0);
+    }
+
+    #[test]
+    fn reads_u8() {
+        let data = [0xAA, 0xBB, 0xCC, 0xDD];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u8().unwrap();
+        let expected = 0xAA;
+
+        assert_eq!(result, expected);
+        assert_eq!(reader.position(), 1);
+    }
+
+    #[test]
+    fn rejects_u8_at_end() {
+        let data = [];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u8();
+
+        assert!(result.is_err());
+        assert_eq!(reader.position(), 0);
+    }
+
+    #[test]
+    fn reads_u16_big_endian() {
+        let data = [0x12, 0x34, 0xAA, 0xBB];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u16().unwrap();
+
+        assert_eq!(result, 0x1234);
+        assert_eq!(reader.position(), 2);
+    }
+
+    #[test]
+    fn rejects_u16_at_end() {
+        let data = [0x12];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u16();
+
+        assert!(result.is_err());
+        assert_eq!(reader.position(), 0);
+    }
+
+    #[test]
+    fn reads_u32_big_endian() {
+        let data = [0x12, 0x34, 0x56, 0x78, 0xAA];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u32().unwrap();
+
+        assert_eq!(result, 0x12345678);
+        assert_eq!(reader.position(), 4);
+    }
+
+    #[test]
+    fn rejects_u32_at_end() {
+        let data = [0x12, 0x34, 0x56];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u32();
+
+        assert!(result.is_err());
+        assert_eq!(reader.position(), 0);
+    }
+
+    #[test]
+    fn reads_u64_big_endian() {
+        let data = [0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0xAA];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u64().unwrap();
+
+        assert_eq!(result, 0x0123456789ABCDEF);
+        assert_eq!(reader.position(), 8);
+    }
+
+    #[test]
+    fn rejects_u64_at_end() {
+        let data = [0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD];
+        let mut reader = Reader::new(&data);
+
+        let result = reader.read_u64();
+
+        assert!(result.is_err());
         assert_eq!(reader.position(), 0);
     }
 }
