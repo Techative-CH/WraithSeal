@@ -1,39 +1,39 @@
-struct Writer {
+pub(crate) struct Writer {
     data: Vec<u8>,
 }
 
 impl Writer {
-    fn position(&self) -> usize {
+    pub(crate) fn position(&self) -> usize {
         self.data.len()
     }
 
-    fn as_slice(&self) -> &[u8] {
+    pub(crate) fn as_slice(&self) -> &[u8] {
         &self.data
     }
 
-    fn new() -> Self {
+    pub(crate) fn new() -> Self {
         Writer { data: Vec::new() }
     }
 
-    fn write_bytes(&mut self, bytes: &[u8]) {
+    pub(crate) fn write_bytes(&mut self, bytes: &[u8]) {
         self.data.extend_from_slice(bytes);
     }
 
-    fn write_u8(&mut self, value: u8) {
+    pub(crate) fn write_u8(&mut self, value: u8) {
         self.write_bytes(&[value]);
     }
 
-    fn write_u16(&mut self, value: u16) {
+    pub(crate) fn write_u16(&mut self, value: u16) {
         let bytes = value.to_be_bytes();
         self.write_bytes(&bytes);
     }
 
-    fn write_u32(&mut self, value: u32) {
+    pub(crate) fn write_u32(&mut self, value: u32) {
         let bytes = value.to_be_bytes();
         self.write_bytes(&bytes);
     }
 
-    fn write_u64(&mut self, value: u64) {
+    pub(crate) fn write_u64(&mut self, value: u64) {
         let bytes = value.to_be_bytes();
         self.write_bytes(&bytes);
     }
