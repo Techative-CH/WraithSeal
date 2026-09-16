@@ -1,0 +1,23 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/wraithseal-core",
+    "crates/wraithseal-crypto",
+    "crates/wraithseal-format",
+    "crates/wraithseal-platform",
+    "apps/wraithseal-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+authors = ["Samuel Banfi"]
+repository = "https://github.com/Techative-CH/WraithSeal"
+publish = false
+
+[workspace.dependencies]
+wraithseal-core = { path = "crates/wraithseal-core" }
+wraithseal-crypto = { path = "crates/wraithseal-crypto" }
+wraithseal-format = { path = "crates/wraithseal-format" }
+wraithseal-platform = { path = "crates/wraithseal-platform" }
